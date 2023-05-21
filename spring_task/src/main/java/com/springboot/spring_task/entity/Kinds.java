@@ -13,6 +13,12 @@ public class Kinds {
     private Long priority;
     public Kinds() {
     }
+    public Kinds(Long id, String description, Long priority) {
+        this.id = id;
+        this.description = description;
+        this.priority = priority;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

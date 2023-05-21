@@ -11,7 +11,6 @@ public class Tasks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @OneToOne
     @JoinColumn(name="kind_id", nullable = false)
     private Kinds kinds;
@@ -30,7 +29,7 @@ public class Tasks {
     public Tasks() {
     }
 
-    public Tasks( Kinds kinds, String name, String description, Date planDate, String tag) {
+    public Tasks(Kinds kinds, String name, String description, Date planDate, String tag) {
         this.kinds = kinds;
         this.name = name;
         this.description = description;

@@ -34,16 +34,11 @@ public class TaskServiceTest {
     public void init() throws ParseException {
         MockitoAnnotations.openMocks(this);
         taskService = new TaskService(taskRepository);
-        Kinds kind = new Kinds();
-        kind.setId(1L);
-        kind.setDescription("kind1");
+        Kinds kind = new Kinds(1L,"kind1",1L);
 
         Date datePlan = new SimpleDateFormat("yyyy-MM-dd").parse("2023-05-20");
-        task = new Tasks();
+        task = new Tasks(kind,"name","desc",datePlan,"tag");
         task.setId(1L);
-        task.setKind(kind);
-        task.setName("name");
-        task.setPlanDate(datePlan);
     }
     @Test
     public void should_findTask_byId() {

@@ -12,7 +12,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,30 +33,20 @@ public class TagServiceTest {
         MockitoAnnotations.openMocks(this);
         tagService = new TagService(tagRepository);
 
-        tag = new Tags();
-        tag.setCode("tag1");
-        tag.setDescription("desc1");
+        tag = new Tags("tag1","desc1");
     }
 
     @Test
-    public void should_findByNameTag_withTaskOrderByPriority() {
-        Kinds kind1 = new Kinds();
-        kind1.setId(1L);
-        kind1.setPriority(2L);
-        kind1.setDescription("kind1");
-        Tasks task1 = new Tasks();
-        task1.setId(1L);
-        task1.setKind(kind1);
-        task1.setName("name1");
+    public void should_findByNameTag_withTaskOrderByPriority() throws ParseException {
+        Kinds kind1 = new Kinds(1L,"kind1",2L);
+        Kinds kind2 = new Kinds(2L,"kind2",1L);
 
-        Kinds kind2 = new Kinds();
-        kind2.setId(2L);
-        kind2.setPriority(1L);
-        kind2.setDescription("kind2");
-        Tasks task2 = new Tasks();
+        Date datePlan = new SimpleDateFormat("yyyy-MM-dd").parse("2023-05-20");
+        Tasks task1 = new Tasks(kind1,"name1","desc1",datePlan,"tag1");
+        task1.setId(1L);
+
+        Tasks task2 = new Tasks(kind2,"name2","desc2",datePlan,"tag1");
         task2.setId(2L);
-        task2.setKind(kind2);
-        task2.setName("name2");
 
         List<Tasks> taskList = Arrays.asList(task1,task2);
         tag.setTask(taskList);
